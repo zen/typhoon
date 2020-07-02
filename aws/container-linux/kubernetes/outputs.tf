@@ -52,3 +52,7 @@ output "worker_target_group_https" {
   value       = module.workers.target_group_https
 }
 
+output "workers_group" {
+  description = "ID of autoscaling group for workers machines"
+  value       = module.workers.workers_group
+}

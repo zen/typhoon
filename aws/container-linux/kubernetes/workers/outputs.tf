@@ -8,3 +8,7 @@ output "target_group_https" {
   value       = aws_lb_target_group.workers-https.arn
 }
 
+output "workers_group" {
+  description = "ID of autoscaling group for workers machines"
+  value       = aws_autoscaling_group.workers.id
+}

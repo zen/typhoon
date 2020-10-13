@@ -23,7 +23,7 @@ data "aws_ami" "coreos" {
   }
 
   filter {
-    name   = "name"
+    name   = "AMI Name"
     values = ["CoreOS-${local.flavor == "coreos" ? local.channel : "stable"}-*"]
   }
 }
@@ -43,7 +43,7 @@ data "aws_ami" "flatcar" {
   }
 
   filter {
-    name   = "name"
+    name   = "AMI Name"
     values = ["Flatcar-${local.flavor == "flatcar" ? local.channel : "stable"}-*"]
   }
 }

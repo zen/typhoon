@@ -4,6 +4,7 @@ locals {
   # flatcar-stable -> Flatcar Linux AMI
   ami_id = data.aws_ami.flatcar.image_id
   channel = split("-", var.os_image)[1]
+  flavor = "flatcar"
 }
 
 data "aws_ami" "flatcar" {

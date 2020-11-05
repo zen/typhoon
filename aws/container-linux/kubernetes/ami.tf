@@ -22,7 +22,7 @@ data "aws_ami" "flatcar" {
 
   filter {
     name   = "name"
-    values = ["Flatcar-${local.flavor == "flatcar" ? local.channel : "stable"}-*"]
+    values = ["Flatcar-${local.channel}-*"]
   }
 }
 

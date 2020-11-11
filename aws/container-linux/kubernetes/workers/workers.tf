@@ -18,8 +18,8 @@ resource "aws_autoscaling_group" "workers" {
 
   # target groups to which instances should be added
   target_group_arns = flatten([
-    aws_lb_target_group.workers-http.id,
-    aws_lb_target_group.workers-https.id,
+    var.ingress_http_enabled ? aws_lb_target_group.workers-http.0.id : [],
+    var.ingress_https_enabled ? aws_lb_target_group.workers-https.0.id : [],
     var.target_groups,
   ])
 
@@ -94,7 +94,7 @@ data "template_file" "worker-config" {
     ssh_authorized_key     = var.ssh_authorized_key
     cluster_dns_service_ip = cidrhost(var.service_cidr, 10)
     cluster_domain_suffix  = var.cluster_domain_suffix
-    cgroup_driver          = local.flavor == "flatcar" && local.channel == "edge" ? "systemd" : "cgroupfs"
+    cgroup_driver          = local.channel == "edge" ? "systemd" : "cgroupfs"
     node_labels            = join(",", var.node_labels)
   }
 }

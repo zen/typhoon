@@ -1,12 +1,13 @@
 # Target groups of instances for use with load balancers
 
 resource "aws_lb_target_group" "workers-http" {
+  count       = var.ingress_http_enabled ? 1 : 0
   name        = "${var.name}-workers-http"
   vpc_id      = var.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
-  port     = 80
+  port     = var.ingress_http_port
 
   # HTTP health check for ingress
   health_check {
@@ -26,12 +27,13 @@ resource "aws_lb_target_group" "workers-http" {
 }
 
 resource "aws_lb_target_group" "workers-https" {
+  count       = var.ingress_https_enabled ? 1 : 0
   name        = "${var.name}-workers-https"
   vpc_id      = var.vpc_id
   target_type = "instance"
 
   protocol = "TCP"
-  port     = 443
+  port     = var.ingress_https_port
 
   # HTTP health check for ingress
   health_check {

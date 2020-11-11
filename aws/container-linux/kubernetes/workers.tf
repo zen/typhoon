@@ -21,5 +21,10 @@ module "workers" {
   snippets              = var.worker_snippets
   node_labels           = var.worker_node_labels
   default_tags          = var.default_tags
+
+  ingress_http_enabled  = var.ingress_http_enabled
+  ingress_http_port     = var.ingress_http_port
+  ingress_https_enabled = var.ingress_https_enabled
+  ingress_https_port    = var.ingress_https_port
 }
 

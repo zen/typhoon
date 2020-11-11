@@ -53,9 +53,14 @@ resource "aws_lb_listener" "ingress-http" {
   }
 }
 
+locals {
+  has_certificate_arn = var.ingress_https_certificate_arn != "" ? true : false
+  ingress_https_listener_enabled = var.ingress_https_enabled || locals.has_certificate_arn
+}
+
 # Forward HTTPS ingress traffic to workers
 resource "aws_lb_listener" "ingress-https" {
-  count             = var.ingress_https_enabled || var.ingress_https_certificate_arn != "" ? 1 : 0
+  count             = local.ingress_https_listener_enabled ? 1 : 0
   load_balancer_arn = aws_lb.nlb.arn
   protocol          = var.ingress_https_certificate_arn != "" ? "TLS" : "TCP"
   port              = 443

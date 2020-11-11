@@ -64,7 +64,7 @@ resource "aws_lb_listener" "ingress-https" {
 
   default_action {
     type             = "forward"
-    target_group_arn = var.ingress_https_certificate_arn ? module.worksers.target_group_http : module.workers.target_group_https
+    target_group_arn = var.ingress_https_certificate_arn ? module.workers.target_group_http : module.workers.target_group_https
   }
 }
 

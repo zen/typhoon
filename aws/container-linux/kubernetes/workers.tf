@@ -22,9 +22,10 @@ module "workers" {
   node_labels           = var.worker_node_labels
   default_tags          = var.default_tags
 
-  ingress_http_enabled  = var.ingress_http_enabled
-  ingress_http_port     = var.ingress_http_port
-  ingress_https_enabled = var.ingress_https_enabled
-  ingress_https_port    = var.ingress_https_port
+  ingress_http_enabled         = var.ingress_http_enabled
+  ingress_http_port            = var.ingress_http_port
+  ingress_https_enabled        = var.ingress_https_enabled
+  ingress_https_port           = var.ingress_https_port
+  ingress_https_ssl_offloading = var.ingress_https_ssl_offloading
 }
 

@@ -53,22 +53,18 @@ resource "aws_lb_listener" "ingress-http" {
   }
 }
 
-locals {
-  has_certificate_arn = var.ingress_https_certificate_arn != "" ? true : false
-}
-
 # Forward HTTPS ingress traffic to workers
 resource "aws_lb_listener" "ingress-https" {
-  count             = local.has_certificate_arn || var.ingress_https_enabled ? 1 : 0
+  count             = var.ingress_https_enabled && var.ingress_https_ssl_offloading ? 1 : 0
   load_balancer_arn = aws_lb.nlb.arn
-  protocol          = local.has_certificate_arn ? "TLS" : "TCP"
+  protocol          = var.ingress_https_ssl_offloading ? "TLS" : "TCP"
   port              = 443
-  ssl_policy        = local.has_certificate_arn != "" ? "ELBSecurityPolicy-TLS-1-2-Ext-2018-06" : null
+  ssl_policy        = var.ingress_https_ssl_offloading ? "ELBSecurityPolicy-TLS-1-2-Ext-2018-06" : null
   certificate_arn   = var.ingress_https_certificate_arn
 
   default_action {
     type             = "forward"
-    target_group_arn = local.has_certificate_arn ? module.workers.target_group_http : module.workers.target_group_https
+    target_group_arn = var.ingress_https_ssl_offloading ? module.workers.target_group_http : module.workers.target_group_https
   }
 }
 

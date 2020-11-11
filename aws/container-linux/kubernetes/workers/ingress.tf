@@ -27,7 +27,7 @@ resource "aws_lb_target_group" "workers-http" {
 }
 
 resource "aws_lb_target_group" "workers-https" {
-  count       = var.ingress_https_enabled ? 1 : 0
+  count       = var.ingress_https_enabled && !var.ingress_https_ssl_offloading ? 1 : 0
   name        = "${var.name}-workers-https"
   vpc_id      = var.vpc_id
   target_type = "instance"

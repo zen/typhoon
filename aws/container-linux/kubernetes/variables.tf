@@ -187,6 +187,12 @@ variable "ingress_https_enabled" {
   default     = true
 }
 
+variable "ingress_https_ssl_offloading" {
+  type        = bool
+  description = "Decide if to use separate listeners for https or to redirect with ssl to http"
+  default     = false
+}
+
 variable "ingress_https_port" {
   type        = number
   description = "Ingress https kubernetes port"

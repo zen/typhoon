@@ -57,14 +57,14 @@ resource "aws_lb_listener" "ingress-http" {
 resource "aws_lb_listener" "ingress-https" {
   count             = var.ingress_https_enabled ? 1 : 0
   load_balancer_arn = aws_lb.nlb.arn
-  protocol          = var.ingress_https_certificate_arn ? "TLS" : "TCP"
+  protocol          = var.ingress_https_certificate_arn != "" ? "TLS" : "TCP"
   port              = 443
-  ssl_policy        = var.ingress_https_certificate_arn ? "ELBSecurityPolicy-TLS-1-2-Ext-2018-06" : null
+  ssl_policy        = var.ingress_https_certificate_arn != "" ? "ELBSecurityPolicy-TLS-1-2-Ext-2018-06" : null
   certificate_arn   = var.ingress_https_certificate_arn
 
   default_action {
     type             = "forward"
-    target_group_arn = var.ingress_https_certificate_arn ? module.workers.target_group_http : module.workers.target_group_https
+    target_group_arn = var.ingress_https_certificate_arn != "" ? module.workers.target_group_http : module.workers.target_group_https
   }
 }
 

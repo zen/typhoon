@@ -18,8 +18,8 @@ resource "aws_autoscaling_group" "workers" {
 
   # target groups to which instances should be added
   target_group_arns = flatten([
-    var.ingress_http_enabled ? aws_lb_target_group.workers-http.0.id : [],
-    var.ingress_https_enabled ? aws_lb_target_group.workers-https.0.id : [],
+    var.ingress_http_enabled ? aws_lb_target_group.workers-http.*.id : [],
+    var.ingress_https_enabled ? aws_lb_target_group.workers-https.*.id : [],
     var.target_groups,
   ])
 

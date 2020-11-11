@@ -196,5 +196,5 @@ variable "ingress_https_port" {
 variable "ingress_https_certificate_arn" {
   type        = string
   description = "Ingress https https arn from AWS CN"
-  default     = null
+  default     = ""
 }

@@ -170,31 +170,31 @@ variable "cluster_domain_suffix" {
 # worker ingress configuration
 
 variable "ingress_http_enabled" {
-  type        = "boolean"
+  type        = bool
   description = "Enable or disable listener for http ingress"
   default     = true
 }
 
 variable "ingress_http_port" {
-  type        = "integer"
+  type        = number
   description = "Ingress http kubernetes port"
   default     = 30888
 }
 
 variable "ingress_https_enabled" {
-  type        = "boolean"
+  type        = bool
   description = "Enable or disable listener for https ingress"
   default     = true
 }
 
 variable "ingress_https_port" {
-  type        = "integer"
+  type        = number
   description = "Ingress https kubernetes port"
   default     = 30999
 }
 
 variable "ingress_https_certificate_arn" {
-  type        = "string"
+  type        = string
   description = "Ingress https https arn from AWS CN"
   default     = null
 }

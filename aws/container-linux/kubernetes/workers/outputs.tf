@@ -1,11 +1,11 @@
 output "target_group_http" {
   description = "ARN of a target group of workers for HTTP traffic"
-  value       = var.ingress_http_enabled ? aws_lb_target_group.workers-http.arn : null
+  value       = var.ingress_http_enabled ? aws_lb_target_group.workers-http[0].arn : null
 }
 
 output "target_group_https" {
   description = "ARN of a target group of workers for HTTPS traffic"
-  value       = var.ingress_http_enabled? aws_lb_target_group.workers-https.arn : null
+  value       = var.ingress_http_enabled? aws_lb_target_group.workers-https[0].arn : null
 }
 
 output "workers_group" {
